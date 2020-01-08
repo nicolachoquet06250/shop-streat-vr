@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Boutique générique VR</title>
     <script src="https://aframe.io/releases/1.0.3/aframe.min.js"></script>
-    <script src="https://unpkg.com/aframe-environment-component/dist/aframe-environment-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-environment-component/dist/aframe-environment-component.js"></script>
     <script src="https://unpkg.com/aframe-physics-system@1.4.0/dist/aframe-physics-system.js"></script>
     <script src="https://unpkg.com/super-hands@2.0.2/dist/super-hands.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.0.1/dist/aframe-extras.js"></script>
@@ -72,130 +72,26 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>My A-Frame Scene</title>
+    <title>on s'en fou</title>
     <script src="https://aframe.io/releases/1.0.3/aframe.min.js"></script>
-    <script src="https://unpkg.com/aframe-teleport-controls/dist/aframe-teleport-controls.js"></script>
-    <script>
-	    /* global AFRAME */
-	    AFRAME.registerShader('skyGradient', {
-		    schema: {
-			    colorTop: { type: 'color', default: 'black', is: 'uniform' },
-			    colorBottom: { type: 'color', default: 'red', is: 'uniform' }
-		    },
-
-		    vertexShader: [
-			    'varying vec3 vWorldPosition;',
-
-			    'void main() {',
-
-			    'vec4 worldPosition = modelMatrix * vec4( position, 1.0 );',
-			    'vWorldPosition = worldPosition.xyz;',
-
-			    'gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );',
-
-			    '}'
-
-		    ].join('\n'),
-
-		    fragmentShader: [
-			    'uniform vec3 colorTop;',
-			    'uniform vec3 colorBottom;',
-
-			    'varying vec3 vWorldPosition;',
-
-			    'void main()',
-
-			    '{',
-			    'vec3 pointOnSphere = normalize(vWorldPosition.xyz);',
-			    'float f = 1.0;',
-			    'if(pointOnSphere.y > - 0.2){',
-
-			    'f = sin(pointOnSphere.y * 2.0);',
-
-			    '}',
-			    'gl_FragColor = vec4(mix(colorBottom,colorTop, f ), 1.0);',
-
-			    '}'
-		    ].join('\n')
-	    });
-    </script>
-    <script src="https://unpkg.com/aframe-input-mapping-component/dist/aframe-input-mapping-component.min.js"></script>
-    <script>
-	    var mappings = {
-		    mappings: {
-			    default: {
-				    common: {
-					    trackpaddown: 'teleportstart',
-					    trackpadup: 'teleportend'
-				    },
-				    'oculus-touch-controls': {
-					    thumbstickdown: 'teleportstart',
-					    thumbstickup: 'teleportend'
-				    },
-				    keyboard: {
-					    't_down': 'teleportstart',
-					    't_up': 'teleportend'
-				    }
-			    }
-		    }
-	    };
-
-	    AFRAME.registerInputMappings(mappings);
-    </script>
+    <script src="https://unpkg.com/aframe-environment-component/dist/aframe-environment-component.min.js"></script>
 </head>
-
 <body>
-    <a-scene>
-        <!-- lights -->
-        <a-entity position="-1 4 0" light="color: #f4f4f4; intensity: 0.6; type: point"></a-entity>
-        <a-entity position="10 3 3" light="color: #47c9ff; intensity: 0.3; type: hemisphere"></a-entity>
-        <!-- scene geometry -->
-        <a-entity id="sky"
-                  geometry="primitive: sphere; radius: 65;"
-                  material="shader: skyGradient; colorTop: #353449; colorBottom: #BC483E; side: back"></a-entity>
-        <a-entity id="floor"
-                  rotation="-90 0 0"
-                  position="0 -5 0"
-                  geometry="primitive: plane; width: 100; height: 100"
-                  material="src: url(../common/pavement.jpg); repeat: 40 40">
-        </a-entity>
-        <a-entity
-                geometry="primitive: sphere; radius: 1;"
-                position= "-5 0 -5"
-                material="color: #f00">
-        </a-entity>
-        <a-entity
-                geometry="primitive: box; width: 6; height: 1.5"
-                position= "-3 0 6"
-                material="color: #ff0">
-        </a-entity>
-        <a-entity
-                geometry="primitive: box; width: 1.5; height: 1.5; depth: 1.5"
-                position= "6.5 0 5";
-                material="color: #00f">
-        </a-entity>
-        <a-entity id="floorgeometry" position="0 0.15 0"
-                  material="src: url(asphalt.jpg); repeat: 10 10; roughness: 0.8" obj-model="obj: url(floor.obj)">
-        </a-entity>
+<a-scene>
+    <a-assets>
+        <img id="boxTexture" src="https://i.imgur.com/mYmmbrp.jpg">
+        <img id="skyTexture"
+             src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/sechelt.jpg">
+        <img id="groundTexture" src="https://cdn.aframe.io/a-painter/images/floor.jpg">
+    </a-assets>
 
-        <a-entity id="cameraRig">
-            <a-entity camera wasd-controls look-controls></a-entity>
-            <!-- hand controls -->
-            <a-entity id="left-hand"
-                      teleport-controls="collisionEntities: #floorgeometry; cameraRig: #cameraRig; startEvents: teleportstart; endEvents: teleportend"
-                      vive-controls="hand: left"
-                      oculus-touch-controls="hand: left"
-                      microsoft-motion-controls="hand: left"
-                      daydream-controls="left" gearvr-controls="left">
-            </a-entity>
-            <a-entity id="right-hand"
-                      teleport-controls="collisionEntities: #floorgeometry; cameraRig: #cameraRig; startEvents: teleportstart; endEvents: teleportend"
-                      vive-controls="hand: right"
-                      microsoft-motion-controls="hand: right"
-                      oculus-touch-controls="hand: right"
-                      daydream-controls="right" gearvr-controls="right">
-            </a-entity>
-        </a-entity>
-    </a-scene>
+    <a-box src="#boxTexture" position="0 2 -5" rotation="0 45 45" scale="2 2 2"
+           animation="property: object3D.position.y; to: 2.2; dir: alternate; dur: 2000; loop: true"></a-box>
+
+    <a-sky src="#skyTexture"></a-sky>
+
+    <a-light type="ambient" color="#445451"></a-light>
+    <a-light type="point" intensity="2" position="2 4 4"></a-light>
+</a-scene>
 </body>
 </html>
