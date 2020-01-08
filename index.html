@@ -8,16 +8,8 @@
     <script src="https://unpkg.com/aframe-physics-system@1.4.0/dist/aframe-physics-system.min.js"></script>
     <script src="https://unpkg.com/super-hands@2.0.2/dist/super-hands.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.0.1/dist/aframe-extras.min.js"></script>
-
-    <script>
-        window.addEventListener('load', () => {
-        	document.querySelector('#loading').object3D.enabled = false;
-        });
-    </script>
 </head>
 <body>
-    <a-scene id="loading" loading-screen="dotsColor: red; backgroundColor: black"></a-scene>
-
     <a-scene physics="friction: 20; restitution: 20; debug: true">
         <a-assets>
             <a-asset-item id="cloud" src="/models/nuage.obj"></a-asset-item>
@@ -37,9 +29,6 @@
         <a-box physics="friction: 20; restitution: 20" position="-45 1 -53.5" width="2" height="2" depth="1" static-body></a-box>
         <a-box physics="friction: 20; restitution: 20" position="-43 1.5 -53.5" width="2" height="3" depth="1" static-body></a-box>
         <a-box physics="friction: 20; restitution: 20" position="-39 3 -53.5" width="6" height="6" depth="1" static-body></a-box>
-
-        <!-- Floor -->
-<!--        <a-plane position="0 0 -4" rotation="-90 0 0" width="100" height="100" color="gray" static-body></a-plane>-->
 
         <a-light type="ambient" color="#445451"></a-light>
         <a-light type="point" intensity="2" position="2 4 4"></a-light>
