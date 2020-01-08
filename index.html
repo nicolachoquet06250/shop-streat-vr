@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Boutique générique VR</title>
+    <script src="https://aframe.io/releases/1.0.3/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-physics-system@1.4.0/dist/aframe-physics-system.min.js"></script>
+    <script src="https://unpkg.com/super-hands@2.0.2/dist/super-hands.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.0.1/dist/aframe-extras.min.js"></script>
+
+    <script>
+        AFRAME.registerPrimitive('a-custom-ocean', {
+            // Attaches the `ocean` component by default.
+            // Defaults the ocean to be parallel to the ground.
+            defaultComponents: {
+                ocean: {},
+                rotation: {x: -90, y: 0, z: 0}
+            },
+
+            // Maps HTML attributes to the `ocean` component's properties.
+            mappings: {
+                width: 'ocean.width',
+                depth: 'ocean.depth',
+                density: 'ocean.density',
+                color: 'ocean.color',
+                opacity: 'ocean.opacity'
+            }
+        });
+    </script>
+</head>
+<body>
+    <a-scene physics="friction: 20; restitution: 20; debug: true">
+        <!-- Camera -->
+        <a-camera position="-50 1 -50" geometry="primitive: box" look-controls wasd-controls mouse-cursor></a-camera>
+
+        <a-box physics="friction: 20; restitution: 20" position="-49 6 -53.5" width="2" height="12" static-body></a-box>
+        <a-box physics="friction: 20; restitution: 20" position="-49.5 3 -52" rotation="0 -90 0" width="2" height="6" static-body></a-box>
+        <a-box physics="friction: 20; restitution: 20" position="-47 3 -53.5" width="2" height="6" static-body></a-box>
+        <a-box physics="friction: 20; restitution: 20" position="-45 1 -53.5" width="2" height="2" static-body></a-box>
+
+        <!-- Floor -->
+        <a-plane position="0 0 -4" rotation="-90 0 0" width="100" height="100" color="gray" static-body></a-plane>
+    </a-scene>
+</body>
+</html>
