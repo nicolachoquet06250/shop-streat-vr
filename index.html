@@ -14,6 +14,8 @@
     </script>
 </head>
 <body>
+    <a-scene loading-screen="dotsColor: red; backgroundColor: black"></a-scene>
+
     <a-scene physics="friction: 20; restitution: 20; debug: true">
         <a-assets>
             <a-asset-item id="cloud" src="/models/nuage.obj"></a-asset-item>
@@ -47,10 +49,10 @@
 
         <a-camera position="-50 8 -50" look-controls wasd-controls mouse-cursor>
             <a-cursor></a-cursor>
-
-            <a-entity oculus-touch-controls="hand: left"></a-entity>
-            <a-entity oculus-touch-controls="hand: right"></a-entity>
         </a-camera>
+
+        <a-entity oculus-touch-controls="hand: left"></a-entity>
+        <a-entity oculus-touch-controls="hand: right"></a-entity>
     </a-scene>
 
     <!--<a-scene>
