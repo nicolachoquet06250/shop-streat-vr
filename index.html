@@ -42,8 +42,29 @@
             <a-cursor></a-cursor>
         </a-camera>
 
-        <a-entity oculus-touch-controls="hand: left"></a-entity>
-        <a-entity oculus-touch-controls="hand: right"></a-entity>
+        <a-entity daydream-controls laser-controls="hand: left"></a-entity>
+        <a-entity daydream-controls laser-controls="hand: right"></a-entity>
+
+        <a-entity gearvr-controls laser-controls="hand: left"></a-entity>
+        <a-entity gearvr-controls laser-controls="hand: right"></a-entity>
+
+        <a-entity oculus-go-controls laser-controls="hand: left"></a-entity>
+        <a-entity oculus-go-controls laser-controls="hand: right"></a-entity>
+
+        <a-entity oculus-touch-controls laser-controls="hand: left"></a-entity>
+        <a-entity oculus-touch-controls laser-controls="hand: right"></a-entity>
+
+        <a-entity vive-controls laser-controls="hand: left"></a-entity>
+        <a-entity vive-controls laser-controls="hand: right"></a-entity>
+
+        <a-entity vive-focus-controls laser-controls="hand: left"></a-entity>
+        <a-entity vive-focus-controls laser-controls="hand: right"></a-entity>
+
+        <a-entity windows-motion-controls laser-controls="hand: left"></a-entity>
+        <a-entity windows-motion-controls laser-controls="hand: right"></a-entity>
+
+        <a-entity id="leftHand" hand-controls="left"></a-entity>
+        <a-entity id="rightHand" hand-controls="right"></a-entity>
     </a-scene>
 
     <!--<a-scene>
