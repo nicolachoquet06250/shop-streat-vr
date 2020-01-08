@@ -4,34 +4,21 @@
     <meta charset="UTF-8">
     <title>Boutique générique VR</title>
     <script src="https://aframe.io/releases/1.0.3/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-environment-component/dist/aframe-environment-component.min.js"></script>
     <script src="https://unpkg.com/aframe-physics-system@1.4.0/dist/aframe-physics-system.min.js"></script>
     <script src="https://unpkg.com/super-hands@2.0.2/dist/super-hands.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.0.1/dist/aframe-extras.min.js"></script>
 
     <script>
-        AFRAME.registerPrimitive('a-custom-ocean', {
-            // Attaches the `ocean` component by default.
-            // Defaults the ocean to be parallel to the ground.
-            defaultComponents: {
-                ocean: {},
-                rotation: {x: -90, y: 0, z: 0}
-            },
 
-            // Maps HTML attributes to the `ocean` component's properties.
-            mappings: {
-                width: 'ocean.width',
-                depth: 'ocean.depth',
-                density: 'ocean.density',
-                color: 'ocean.color',
-                opacity: 'ocean.opacity'
-            }
-        });
     </script>
 </head>
 <body>
     <a-scene physics="friction: 20; restitution: 20; debug: true">
-        <!-- Camera -->
-        <a-camera position="-50 18 -50" geometry="primitive: box" look-controls wasd-controls mouse-cursor></a-camera>
+        <a-assets>
+            <a-asset-item id="cloud" src="/models/nuage.obj"></a-asset-item>
+        </a-assets>
+
         <!--
             position: x y z
             rotation: x y z
@@ -48,7 +35,46 @@
         <a-box physics="friction: 20; restitution: 20" position="-39 3 -53.5" width="6" height="6" depth="1" static-body></a-box>
 
         <!-- Floor -->
-        <a-plane position="0 0 -4" rotation="-90 0 0" width="100" height="100" color="gray" static-body></a-plane>
+<!--        <a-plane position="0 0 -4" rotation="-90 0 0" width="100" height="100" color="gray" static-body></a-plane>-->
+
+        <a-light type="ambient" color="#445451"></a-light>
+        <a-light type="point" intensity="2" position="2 4 4"></a-light>
+
+        <a-entity obj-model="obj: #cloud" position="-50 10 -50" scale="20 0 10" color="white"></a-entity>
+        <a-entity environment="shadow: true; shadowSize: 10;" ></a-entity>
+
+        <a-sky color="skyblue"></a-sky>
+
+        <a-camera position="-50 8 -50" look-controls wasd-controls mouse-cursor>
+            <a-cursor></a-cursor>
+        </a-camera>
     </a-scene>
+
+    <!--<a-scene>
+        <a-assets>
+            <img id="boxTexture" src="https://i.imgur.com/mYmmbrp.jpg" />
+            <img id="skyTexture" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/sechelt.jpg" />
+            <img id="groundTexture" src="https://cdn.aframe.io/a-painter/images/floor.jpg" />
+            <a-asset-item id="cityModel" src="https://cdn.aframe.io/test-models/models/glTF-2.0/virtualcity/VC.gltf"></a-asset-item>
+        </a-assets>
+
+        <a-box src="#boxTexture" position="0 2 -5" rotation="0 45 45" scale="2 2 2"
+               animation__position="property: object3D.position.y; to: 2.2; dir: alternate; dur: 2000; loop: true"
+               animation__mouseenter="property: scale; to: 2.3 2.3 2.3; dur: 300; startEvents: mouseenter"
+               animation__mouseleave="property: scale; to: 2 2 2; dur: 300; startEvents: mouseleave"></a-box>
+
+&lt;!&ndash;        <a-entity gltf-model="#cityModel" modify-materials></a-entity>&ndash;&gt;
+        <a-entity obj-model="#cloud" modify-materials></a-entity>
+
+&lt;!&ndash;        <a-sky src="#skyTexture"></a-sky>&ndash;&gt;
+
+&lt;!&ndash;        <a-plane src="#groundTexture" rotation="-90 0 0" width="30" height="30" static-body></a-plane>&ndash;&gt;
+        <a-light type="ambient" color="#445451"></a-light>
+        <a-light type="point" intensity="2" position="2 4 4"></a-light>
+
+        <a-entity text="value: Hello, A-Frame!; color: #BBB"
+                  position="-0.9 0.2 -3"
+                  scale="1.5 1.5 1.5"></a-entity>
+    </a-scene>-->
 </body>
 </html>
