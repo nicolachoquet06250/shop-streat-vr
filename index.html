@@ -10,11 +10,13 @@
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.0.1/dist/aframe-extras.min.js"></script>
 
     <script>
-
+        window.addEventListener('load', () => {
+        	document.querySelector('#loading').object3D.enabled = false;
+        });
     </script>
 </head>
 <body>
-    <a-scene loading-screen="dotsColor: red; backgroundColor: black"></a-scene>
+    <a-scene id="loading" loading-screen="dotsColor: red; backgroundColor: black"></a-scene>
 
     <a-scene physics="friction: 20; restitution: 20; debug: true">
         <a-assets>
