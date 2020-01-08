@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<!--<head>
     <meta charset="UTF-8">
     <title>Boutique générique VR</title>
     <script src="https://aframe.io/releases/1.0.3/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-environment-component/dist/aframe-environment-component.min.js"></script>
-    <script src="https://unpkg.com/aframe-physics-system@1.4.0/dist/aframe-physics-system.min.js"></script>
+    <script src="https://unpkg.com/aframe-physics-system@1.4.0/dist/aframe-physics-system.js"></script>
     <script src="https://unpkg.com/super-hands@2.0.2/dist/super-hands.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.0.1/dist/aframe-extras.min.js"></script>
-    <script src="https://unpkg.com/aframe-teleport-controls/dist/aframe-teleport-controls.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.0.1/dist/aframe-extras.js"></script>
+    <script src="https://unpkg.com/aframe-teleport-controls/dist/aframe-teleport-controls.js"></script>
 </head>
 <body>
     <a-scene physics="friction: 20; restitution: 20; debug: true">
@@ -16,13 +16,13 @@
             <a-asset-item id="cloud" src="/models/nuage.obj"></a-asset-item>
         </a-assets>
 
-        <!--
+        &lt;!&ndash;
             position: x y z
             rotation: x y z
             width: largeur
             height: hauteur
             depth: profondeur
-        -->
+        &ndash;&gt;
 
         <a-box physics="friction: 20; restitution: 20" position="-49.5 3 -52" rotation="0 -90 0" width="2" height="6" static-body></a-box>
         <a-box physics="friction: 20; restitution: 20" position="-49 6 -53.5" width="2" height="12" depth="1" static-body></a-box>
@@ -44,29 +44,47 @@
                 <a-entity geometry="primitive: plane; height: 0.2; width: 0.2" position="0 0 -1" material="color: gray; opacity: 0.5"></a-entity>
             </a-camera>
         </a-entity>
-<!--        <a-entity daydream-controls="hand: left"></a-entity>-->
-<!--        <a-entity daydream-controls="hand: right"></a-entity>-->
+&lt;!&ndash;        <a-entity daydream-controls="hand: left"></a-entity>&ndash;&gt;
+&lt;!&ndash;        <a-entity daydream-controls="hand: right"></a-entity>&ndash;&gt;
 
-<!--        <a-entity gearvr-controls="hand: left"></a-entity>-->
-<!--        <a-entity gearvr-controls="hand: right"></a-entity>-->
+&lt;!&ndash;        <a-entity gearvr-controls="hand: left"></a-entity>&ndash;&gt;
+&lt;!&ndash;        <a-entity gearvr-controls="hand: right"></a-entity>&ndash;&gt;
 
-<!--        <a-entity oculus-go-controls="hand: left"></a-entity>-->
-<!--        <a-entity oculus-go-controls="hand: right"></a-entity>-->
+&lt;!&ndash;        <a-entity oculus-go-controls="hand: left"></a-entity>&ndash;&gt;
+&lt;!&ndash;        <a-entity oculus-go-controls="hand: right"></a-entity>&ndash;&gt;
 
-<!--        <a-entity oculus-touch-controls="hand: left"></a-entity>-->
-<!--        <a-entity oculus-touch-controls="hand: right"></a-entity>-->
+&lt;!&ndash;        <a-entity oculus-touch-controls="hand: left"></a-entity>&ndash;&gt;
+&lt;!&ndash;        <a-entity oculus-touch-controls="hand: right"></a-entity>&ndash;&gt;
 
-<!--        <a-entity vive-controls="hand: left"></a-entity>-->
-<!--        <a-entity vive-controls="hand: right"></a-entity>-->
+&lt;!&ndash;        <a-entity vive-controls="hand: left"></a-entity>&ndash;&gt;
+&lt;!&ndash;        <a-entity vive-controls="hand: right"></a-entity>&ndash;&gt;
 
-<!--        <a-entity vive-focus-controls="hand: left"></a-entity>-->
-<!--        <a-entity vive-focus-controls="hand: right"></a-entity>-->
+&lt;!&ndash;        <a-entity vive-focus-controls="hand: left"></a-entity>&ndash;&gt;
+&lt;!&ndash;        <a-entity vive-focus-controls="hand: right"></a-entity>&ndash;&gt;
 
-<!--        <a-entity windows-motion-controls="hand: left"></a-entity>-->
-<!--        <a-entity windows-motion-controls="hand: right"></a-entity>-->
+&lt;!&ndash;        <a-entity windows-motion-controls="hand: left"></a-entity>&ndash;&gt;
+&lt;!&ndash;        <a-entity windows-motion-controls="hand: right"></a-entity>&ndash;&gt;
 
         <a-entity id="left-hand" brush paint-controls="hand: left" ui teleport-controls></a-entity>
         <a-entity id="right-hand" brush paint-controls="hand: right" ui teleport-controls></a-entity>
     </a-scene>
+</body>-->
+
+<head>
+    <title>My A-Frame Scene</title>
+    <script src="https://aframe.io/releases/1.0.3/aframe.min.js"></script>
+    <script src="https://rawgit.com/fernandojsg/aframe-teleport-controls/master/dist/aframe-teleport-controls.min.js"></script>
+</head>
+
+<body>
+<a-scene>
+    <a-entity id="cameraRig">
+        <!-- camera -->
+        <a-entity id="head" camera wasd-controls look-controls></a-entity>
+        <!-- hand controls -->
+        <a-entity id="left-hand" teleport-controls="cameraRig: #cameraRig; teleportOrigin: #head;"></a-entity>
+        <a-entity id="right-hand" teleport-controls="cameraRig: #cameraRig; teleportOrigin: #head;"></a-entity>
+    </a-entity>
+</a-scene>
 </body>
 </html>
