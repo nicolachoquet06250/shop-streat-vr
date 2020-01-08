@@ -75,17 +75,99 @@
     <title>My A-Frame Scene</title>
     <script src="https://aframe.io/releases/1.0.3/aframe.min.js"></script>
     <script src="https://rawgit.com/fernandojsg/aframe-teleport-controls/master/dist/aframe-teleport-controls.min.js"></script>
+    <script>
+	    /* global AFRAME */
+	    AFRAME.registerShader('skyGradient', {
+		    schema: {
+			    colorTop: { type: 'color', default: 'black', is: 'uniform' },
+			    colorBottom: { type: 'color', default: 'red', is: 'uniform' }
+		    },
+
+		    vertexShader: [
+			    'varying vec3 vWorldPosition;',
+
+			    'void main() {',
+
+			    'vec4 worldPosition = modelMatrix * vec4( position, 1.0 );',
+			    'vWorldPosition = worldPosition.xyz;',
+
+			    'gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );',
+
+			    '}'
+
+		    ].join('\n'),
+
+		    fragmentShader: [
+			    'uniform vec3 colorTop;',
+			    'uniform vec3 colorBottom;',
+
+			    'varying vec3 vWorldPosition;',
+
+			    'void main()',
+
+			    '{',
+			    'vec3 pointOnSphere = normalize(vWorldPosition.xyz);',
+			    'float f = 1.0;',
+			    'if(pointOnSphere.y > - 0.2){',
+
+			    'f = sin(pointOnSphere.y * 2.0);',
+
+			    '}',
+			    'gl_FragColor = vec4(mix(colorBottom,colorTop, f ), 1.0);',
+
+			    '}'
+		    ].join('\n')
+	    });
+    </script>
+    <script src="https://unpkg.com/aframe-input-mapping-component/dist/aframe-input-mapping-component.min.js"></script>
+    <script>
+	    var mappings = {
+		    mappings: {
+			    default: {
+				    common: {
+					    trackpaddown: 'teleportstart',
+					    trackpadup: 'teleportend'
+				    },
+				    'oculus-touch-controls': {
+					    thumbstickdown: 'teleportstart',
+					    thumbstickup: 'teleportend'
+				    },
+				    keyboard: {
+					    't_down': 'teleportstart',
+					    't_up': 'teleportend'
+				    }
+			    }
+		    }
+	    };
+
+	    AFRAME.registerInputMappings(mappings);
+    </script>
 </head>
 
 <body>
-<a-scene>
-    <a-entity id="cameraRig">
-        <!-- camera -->
-        <a-entity id="head" camera wasd-controls look-controls></a-entity>
+    <a-scene>
+        <!-- scene geometry -->
+        <a-entity id="sky"
+                  geometry="primitive: sphere; radius: 65;"
+                  material="shader: skyGradient; colorTop: #aaa; colorBottom: #fff; side: back"></a-entity>
+        <a-entity id="floor"
+                  rotation="-90 0 0"
+                  geometry="primitive: plane; width: 100; height: 100"
+                  material="src: url(/models/floor.jpg); repeat: 80 80">
+        </a-entity>
         <!-- hand controls -->
-        <a-entity id="left-hand" teleport-controls="cameraRig: #cameraRig; teleportOrigin: #head;"></a-entity>
-        <a-entity id="right-hand" teleport-controls="cameraRig: #cameraRig; teleportOrigin: #head;"></a-entity>
-    </a-entity>
-</a-scene>
+        <a-entity teleport-controls="startEvents: teleportstart; endEvents: teleportend"
+                  vive-controls="hand: left"
+                  oculus-touch-controls="hand: left"
+                  microsoft-motion-controls="hand: left"
+                  daydream-controls="left" gearvr-controls="left">
+        </a-entity>
+        <a-entity teleport-controls="startEvents: teleportstart; endEvents: teleportend; type: line"
+                  vive-controls="hand: right"
+                  microsoft-motion-controls="hand: right"
+                  oculus-touch-controls="hand: right"
+                  daydream-controls="right" gearvr-controls="right">
+        </a-entity>
+    </a-scene>
 </body>
 </html>
