@@ -54,6 +54,15 @@
 		    }
 	    });
 
+	    AFRAME.registerComponent('grip-down', {
+		    init: function () {
+			    var el = this.el;
+			    el.addEventListener('gripdonw', function (evt) {
+				    el.setAttribute('visible', !el.getAttribute('visible'));
+			    });
+		    }
+	    });
+
         window.addEventListener('load', () => {});
     </script>
 </head>
