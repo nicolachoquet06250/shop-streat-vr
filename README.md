@@ -28,3 +28,4 @@ https://github.com/aframevr/aframe/blob/master/docs/components/oculus-touch-cont
 https://www.google.com/search?sxsrf=ACYBGNTSq3cCHImFSpznkCMS61mDDghIRQ%3A1578580880691&ei=kDsXXu3vKfHOgwfg6qW4DQ&q=d%C3%A9placer+la+cam%C3%A9ra+sur+la+scene+avec+aframe.js&oq=d%C3%A9placer+la+cam%C3%A9ra+sur+la+scene+avec+aframe.js&gs_l=psy-ab.3...25032.31552..31907...0.0..0.203.2495.31j1j1......0....1..gws-wiz.......35i39.8zCtHuDIwiY&ved=0ahUKEwjt95GF4PbmAhVx5-AKHWB1CdcQ4dUDCAs&uact=5
 https://steakrecords.com/fr/419077-programmatically-change-webvr-camera-view-javascript-aframe-webvr.html
 https://aframe.io/blog/awoa-30/
+https://github.com/fernandojsg/aframe-teleport-controls
