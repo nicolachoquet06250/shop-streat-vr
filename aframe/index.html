@@ -42,10 +42,11 @@
         <a-entity obj-model="obj: #cloud" position="-40 10 -60" scale="20 0 10" color="white"></a-entity>
         <a-entity class="sol" environment="shadow: true; shadowSize: 10;"></a-entity>
 
-        <a-camera id="camera" position="-40 1.6 -50" universal-controls kinematic-body>
+        <a-entity id="player">
+            <a-camera id="camera" position="-40 1.6 -50" universal-controls kinematic-body></a-camera>
             <a-entity hand-controls="left" laser-controls raycaster="objects: .building, .sol"></a-entity>
             <a-entity hand-controls="right" laser-controls raycaster="objects: .building, .sol"></a-entity>
-        </a-camera>
+        </a-entity>
     </a-scene>
 </body>
 </html>
