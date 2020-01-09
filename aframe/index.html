@@ -88,6 +88,18 @@
 			    var callbacks = {
 				    onHover: function () {
 					    el.setAttribute('color', 'blue');
+					    document.querySelector('#right').addEventListener('abuttondown', function (evt) {
+						    el.setAttribute('visible', !el.getAttribute('visible'));
+					    });
+					    document.querySelector('#left').addEventListener('xbuttondown', function (evt) {
+						    el.setAttribute('visible', !el.getAttribute('visible'));
+					    });
+                        document.querySelector('#right').addEventListener('gripdown', function (evt) {
+	                        el.setAttribute('visible', !el.getAttribute('visible'));
+                        });
+					    document.querySelector('#left').addEventListener('gripdown', function (evt) {
+						    el.setAttribute('visible', !el.getAttribute('visible'));
+					    });
 				    },
 				    onOut: function () {
 					    el.setAttribute('color', 'white');
@@ -103,7 +115,7 @@
 		    }
 	    });
 
-	    AFRAME.registerComponent('a-button-listener', {
+	    /*AFRAME.registerComponent('a-button-listener', {
 		    init: function () {
 			    var el = this.el;
 			    el.addEventListener('abuttondown', function (evt) {
@@ -119,7 +131,7 @@
 				    el.setAttribute('visible', !el.getAttribute('visible'));
 			    });
 		    }
-	    });
+	    });*/
     </script>
 </head>
 <body>
@@ -160,12 +172,12 @@
                       hand-controls="left"
                       rotation="-90 0 0"
                       raycaster="objects: .building, .sol"
-                      super-hands laser-controls cursor grip-down></a-entity>
+                      super-hands laser-controls cursor></a-entity>
             <a-entity id="right"
                       hand-controls="right"
                       rotation="90 0 0"
                       raycaster="objects: .building, .sol"
-                      super-hands laser-controls cursor a-button-listener></a-entity>
+                      super-hands laser-controls cursor></a-entity>
         </a-entity>
     </a-scene>
 </body>
