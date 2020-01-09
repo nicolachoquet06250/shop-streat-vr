@@ -9,7 +9,7 @@
     <script src="https://unpkg.com/super-hands@2.0.2/dist/super-hands.min.js"></script>
 
     <script>
-	    AFRAME.registerComponent('toggle', {
+	    /*AFRAME.registerComponent('toggle', {
 		    schema: {
 			    hover: {default: 'onHover'},
 			    out: {default: 'onOut'}
@@ -65,6 +65,60 @@
 				    el.addEventListener('mouseleave', callbacks[data.out]);
 			    }
 		    }
+	    });*/
+
+	    AFRAME.registerComponent('toggle', {
+		    schema: {
+			    hover: {default: 'onHover'},
+			    out: {default: 'onOut'}
+		    },
+
+		    getData: function() {
+			    return this.data;
+		    },
+
+		    getElem() {
+			    return this.el;
+		    },
+
+		    init: function () {
+			    var data = this.data;
+			    var el = this.el;
+
+			    var callbacks = {
+				    onHover: function () {
+					    el.setAttribute('color', 'blue');
+				    },
+				    onOut: function () {
+					    el.setAttribute('color', 'white');
+				    }
+			    };
+
+			    if(data.hover in callbacks) {
+				    el.addEventListener('mouseenter', callbacks[data.hover]);
+			    }
+			    if(data.out in callbacks) {
+				    el.addEventListener('mouseleave', callbacks[data.out]);
+			    }
+		    }
+	    });
+
+	    AFRAME.registerComponent('a-button-listener', {
+		    init: function () {
+			    var el = this.el;
+			    el.addEventListener('abuttondown', function (evt) {
+				    el.setAttribute('visible', !el.getAttribute('visible'));
+			    });
+		    }
+	    });
+
+	    AFRAME.registerComponent('grip-down', {
+		    init: function () {
+			    var el = this.el;
+			    el.addEventListener('gripdown', function (evt) {
+				    el.setAttribute('visible', !el.getAttribute('visible'));
+			    });
+		    }
 	    });
     </script>
 </head>
@@ -96,16 +150,22 @@
 
         <a-entity obj-model="obj: #cloud" position="-50 10 -50" scale="20 0 10" color="white"></a-entity>
         <a-entity obj-model="obj: #cloud" position="-40 10 -60" scale="20 0 10" color="white"></a-entity>
-        <a-entity class="sol" environment="shadow: true; shadowSize: 10;"></a-entity>
+        <a-entity class="sol" environment="shadow: true; shadowSize: 10;" toogle></a-entity>
 
         <a-entity id="player">
             <a-camera id="camera" position="-40 1.6 -50" universal-controls kinematic-body>
                 <a-entity cursor="type: gaze" visible="false"></a-entity>
             </a-camera>
-            <a-entity id="left" hand-controls="left" rotation="-90 0 0" super-hands laser-controls raycaster="objects: .building, .sol" cursor event-set="_event: mouseenter"></a-entity>
-            <a-entity id="right" hand-controls="right" rotation="90 0 0" super-hands laser-controls raycaster="objects: .building, .sol" cursor vent-set="_event: mouseenter"></a-entity>
-
-            <a-text id="txt" value="" position="-50 1.6 -50" scale="0.4 0.4 0.4" align="center" color="#000000"></a-text>
+            <a-entity id="left"
+                      hand-controls="left"
+                      rotation="-90 0 0"
+                      raycaster="objects: .building, .sol"
+                      super-hands laser-controls cursor a-button-listener></a-entity>
+            <a-entity id="right"
+                      hand-controls="right"
+                      rotation="90 0 0"
+                      raycaster="objects: .building, .sol"
+                      super-hands laser-controls cursor grip-down></a-entity>
         </a-entity>
     </a-scene>
 </body>
