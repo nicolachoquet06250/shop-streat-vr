@@ -51,7 +51,7 @@
 		    }
 	    });
 
-	    /*AFRAME.registerComponent('a-button-listener', {
+	    AFRAME.registerComponent('a-button-listener', {
 		    init: function () {
 			    var el = this.el;
 			    el.addEventListener('abuttondown', function (evt) {
@@ -64,10 +64,11 @@
 		    init: function () {
 			    var el = this.el;
 			    el.addEventListener('gripdown', function (evt) {
+			    	document.querySelector('#txt').setAttribute('value', evt.detail.body.el.tagName);
 				    evt.detail.body.el.setAttribute('visible', evt.detail.body.el.getAttribute('visible'));
 			    });
 		    }
-	    });*/
+	    });
 
 	    /*AFRAME.registerComponent('collide', {
 	    	init: function () {
@@ -108,6 +109,8 @@
         <a-entity obj-model="obj: #cloud" position="-50 10 -50" scale="20 0 10" color="white"></a-entity>
         <a-entity obj-model="obj: #cloud" position="-40 10 -60" scale="20 0 10" color="white"></a-entity>
         <a-entity class="sol" environment="shadow: true; shadowSize: 10;"></a-entity>
+
+        <a-text id="txt" value="" position="0 0 -1" scale="0.4 0.4 0.4" align="center" color="#000000"></a-text>
 
         <a-entity id="player">
             <a-camera id="camera" position="-40 1.6 -50" universal-controls kinematic-body>
