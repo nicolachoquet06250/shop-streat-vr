@@ -111,14 +111,14 @@
         <a-entity obj-model="obj: #cloud" position="-40 10 -60" scale="20 0 10" color="white"></a-entity>
         <a-entity class="sol" environment="shadow: true; shadowSize: 10;"></a-entity>
 
-        <a-text id="txt" value="" position="0 0 -1" scale="0.4 0.4 0.4" align="center" color="#000000"></a-text>
-
         <a-entity id="player">
             <a-camera id="camera" position="-40 1.6 -50" universal-controls kinematic-body>
                 <a-entity cursor="type: gaze" visible="false"></a-entity>
             </a-camera>
             <a-entity hand-controls="left" rotation="-90 0 0" super-hands laser-controls raycaster="objects: .building, .sol" cursor grip-down-listener></a-entity>
             <a-entity hand-controls="right" rotation="90 0 0" super-hands laser-controls raycaster="objects: .building, .sol" cursor a-button-listener></a-entity>
+
+            <a-text id="txt" value="" scale="0.4 0.4 0.4" align="center" color="#000000"></a-text>
         </a-entity>
     </a-scene>
 </body>
