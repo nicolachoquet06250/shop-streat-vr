@@ -33,11 +33,27 @@
 					    el.addEventListener('click', () => {
 					    	el.setAttribute('visible', !el.setAttribute('visible'));
                         });
+					    document.querySelector('#right').addEventListener('abuttondown', function (evt) {
+						    document.querySelector('#txt').setAttribute('value', 'A - ' + evt.detail.body.el.tagName);
+						    evt.detail.body.el.setAttribute('visible', evt.detail.body.el.getAttribute('visible'));
+					    });
+					    document.querySelector('#left').addEventListener('gripdown', function (evt) {
+						    document.querySelector('#txt').setAttribute('value', 'GRIP - ' + evt.detail.body.el.tagName);
+						    evt.detail.body.el.setAttribute('visible', evt.detail.body.el.getAttribute('visible'));
+					    });
 				    },
 				    onOut: function () {
 					    el.setAttribute('color', 'white');
 					    el.removeEventListener('click', () => {
 						    el.setAttribute('visible', !el.setAttribute('visible'));
+					    });
+					    document.querySelector('#right').removeEventListener('abuttondown', function (evt) {
+						    document.querySelector('#txt').setAttribute('value', 'A - ' + evt.detail.body.el.tagName);
+						    evt.detail.body.el.setAttribute('visible', evt.detail.body.el.getAttribute('visible'));
+					    });
+					    document.querySelector('#left').removeEventListener('gripdown', function (evt) {
+						    document.querySelector('#txt').setAttribute('value', 'GRIP - ' + evt.detail.body.el.tagName);
+						    evt.detail.body.el.setAttribute('visible', evt.detail.body.el.getAttribute('visible'));
 					    });
 				    }
                 };
@@ -50,35 +66,6 @@
 			    }
 		    }
 	    });
-
-	    AFRAME.registerComponent('a-button-listener', {
-		    init: function () {
-			    var el = this.el;
-			    el.addEventListener('abuttondown', function (evt) {
-				    document.querySelector('#txt').setAttribute('value', 'A - ' + evt.detail.body.el.tagName);
-				    evt.detail.body.el.setAttribute('visible', evt.detail.body.el.getAttribute('visible'));
-			    });
-		    }
-	    });
-
-	    AFRAME.registerComponent('grip-down-listener', {
-		    init: function () {
-			    var el = this.el;
-			    el.addEventListener('gripdown', function (evt) {
-			    	document.querySelector('#txt').setAttribute('value', 'GRIP - ' + evt.detail.body.el.tagName);
-				    evt.detail.body.el.setAttribute('visible', evt.detail.body.el.getAttribute('visible'));
-			    });
-		    }
-	    });
-
-	    /*AFRAME.registerComponent('collide', {
-	    	init: function () {
-                var el = this.el;
-                el.addEventListener('collide', function (evt) {
-                    evt.detail.body.el.setAttribute('visible', evt.detail.body.el.getAttribute('visible'));
-                })
-		    }
-        });*/
     </script>
 </head>
 <body>
@@ -114,10 +101,11 @@
         <a-entity id="player">
             <a-camera id="camera" position="-40 1.6 -50" universal-controls kinematic-body>
                 <a-entity cursor="type: gaze" visible="false"></a-entity>
-                <a-text id="txt" value="" scale="0.4 0.4 0.4" align="center" color="#000000"></a-text>
             </a-camera>
-            <a-entity hand-controls="left" rotation="-90 0 0" super-hands laser-controls raycaster="objects: .building, .sol" cursor grip-down-listener></a-entity>
-            <a-entity hand-controls="right" rotation="90 0 0" super-hands laser-controls raycaster="objects: .building, .sol" cursor a-button-listener></a-entity>
+            <a-entity id="left" hand-controls="left" rotation="-90 0 0" super-hands laser-controls raycaster="objects: .building, .sol" cursor event-set="_event: mouseenter"></a-entity>
+            <a-entity id="right" hand-controls="right" rotation="90 0 0" super-hands laser-controls raycaster="objects: .building, .sol" cursor vent-set="_event: mouseenter"></a-entity>
+
+            <a-text id="txt" value="" position="-50 1.6 -50" scale="0.4 0.4 0.4" align="center" color="#000000"></a-text>
         </a-entity>
     </a-scene>
 </body>
