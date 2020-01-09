@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Allée commercente VR - BabylonJS</title>
+    <style>
+        html, body {
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #renderCanvas {
+            width: 100%;
+            height: 100%;
+            touch-action: none;
+        }
+    </style>
+    <script src="https://cdn.babylonjs.com/babylon.js"></script>
+    <script src="https://cdn.babylonjs.com/inspector/babylon.inspector.bundle.js"></script>
+    <script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
+    <script src="https://cdn.babylonjs.com/materialsLibrary/babylonjs.materials.min.js"></script>
+    <script src="https://cdn.babylonjs.com/postProcessesLibrary/babylonjs.postProcess.min.js"></script>
+    <script src="https://cdn.babylonjs.com/gui/babylon.gui.min.js"></script>
+    <script src="https://cdn.babylonjs.com/proceduralTexturesLibrary/babylonjs.proceduralTextures.min.js"></script>
+    <script src="https://cdn.babylonjs.com/serializers/babylonjs.serializers.min.js"></script>
+    <script src="https://code.jquery.com/pep/0.4.3/pep.js"></script>
+</head>
+
+    <script>
+        window.addEventListener('load', () => {
+            var canvas = document.getElementById("renderCanvas"); // Get the canvas element
+            var engine = new BABYLON.Engine(canvas, true); // Generate the BABYLON 3D engine
+
+            var createScene = function () {
+                var headset;
+                // If a VR headset is connected, get its info
+                navigator.getVRDisplays().then(function (displays) {
+                    if (displays[0]) {
+                        headset = displays[0];
+                    }
+                });
+                var scene = new BABYLON.Scene(engine);
+
+                // Lights
+                var light0 = new BABYLON.DirectionalLight("Omni", new BABYLON.Vector3(-2, -5, 2), scene);
+                var light1 = new BABYLON.PointLight("Omni", new BABYLON.Vector3(2, -5, -2), scene);
+
+                // Need a free camera for collisions
+                // var camera = new BABYLON.FreeCamera("FreeCamera", new BABYLON.Vector3(0, -8, -20), scene);
+                // camera.attachControl(canvas, true);
+                var camera;
+                if(headset){
+                    // Create a WebVR camera with the trackPosition property set to false so that we can control movement with the gamepad
+                    camera = new BABYLON.WebVRFreeCamera("vrcamera", new BABYLON.Vector3(0, 14, 0), scene, true, { trackPosition: false });
+                    camera.deviceScaleFactor = 1;
+                } else {
+                    // No headset, use universal camera
+                    camera = new BABYLON.UniversalCamera("camera", new BABYLON.Vector3(0, 18, -45), scene);
+                }
+                scene.onPointerDown = function () {
+                    scene.onPointerDown = undefined;
+                    camera.attachControl(canvas, true);
+                };
+                // Custom input, adding Xbox controller support for left analog stick to map to keyboard arrows
+                camera.inputs.attached.keyboard.keysUp.push(211);    // Left analog up
+                camera.inputs.attached.keyboard.keysDown.push(212);  // Left analog down
+                camera.inputs.attached.keyboard.keysLeft.push(214);  // Left analog left
+                camera.inputs.attached.keyboard.keysRight.push(213); // Left analog right
+
+                if (headset) {
+                    if (!headset.isPresenting) {
+                        var camera2 = new BABYLON.UniversalCamera("Camera", new BABYLON.Vector3(0, 18, -45), scene);
+                        scene.activeCamera = camera2;
+                    } else {
+                        scene.activeCamera = camera;
+                    }
+                }
+
+                //Ground
+                var ground = BABYLON.Mesh.CreatePlane("ground", 20.0, scene);
+                ground.material = new BABYLON.StandardMaterial("groundMat", scene);
+                ground.material.diffuseColor = new BABYLON.Color3(1, 1, 1);
+                ground.material.backFaceCulling = false;
+                ground.position = new BABYLON.Vector3(5, -10, -15);
+                ground.rotation = new BABYLON.Vector3(Math.PI / 2, 0, 0);
+
+                //Simple crate
+                var box = BABYLON.Mesh.CreateBox("crate", 2, scene);
+                box.material = new BABYLON.StandardMaterial("Mat", scene);
+                box.material.diffuseTexture = new BABYLON.Texture("textures/crate.png", scene);
+                box.material.diffuseTexture.hasAlpha = true;
+                box.position = new BABYLON.Vector3(5, -9, -10);
+
+                //Set gravity for the scene (G force like, on Y-axis)
+                scene.gravity = new BABYLON.Vector3(0, -0.9, 0);
+
+                // Enable Collisions
+                scene.collisionsEnabled = true;
+
+                //Then apply collisions and gravity to the active camera
+                camera.checkCollisions = true;
+                camera.applyGravity = true;
+
+                //Set the ellipsoid around the camera (e.g. your player's size)
+                camera.ellipsoid = new BABYLON.Vector3(1, 1, 1);
+
+                //finally, say which mesh will be collisionable
+                ground.checkCollisions = true;
+                box.checkCollisions = true;
+
+                return scene;
+            };
+            var scene = createScene();
+            engine.runRenderLoop(function () {
+                scene.render();
+            });
+            window.addEventListener("resize", function () {
+                engine.resize();
+            });
+        });
+    </script>
+</head>
+<body>
+    <canvas id="renderCanvas" touch-action="none"></canvas>
+</body>
+</html>
