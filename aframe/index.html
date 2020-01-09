@@ -43,11 +43,11 @@
         <a-entity class="sol" environment="shadow: true; shadowSize: 10;"></a-entity>
 
         <a-box id="rig" material="color: transparent;" position="-40 1.6 -50">
-            <a-camera id="camera" universal-controls kinematic-body></a-camera>
+            <a-camera id="camera" universal-controls kinematic-body>
+                <a-entity hand-controls="left" laser-controls raycaster="objects: .building, .sol"></a-entity>
+                <a-entity hand-controls="right" laser-controls raycaster="objects: .building, .sol"></a-entity>
+            </a-camera>
         </a-box>
-
-        <a-entity hand-controls="left" laser-controls raycaster="objects: .building, .sol"></a-entity>
-        <a-entity hand-controls="right" laser-controls raycaster="objects: .building, .sol"></a-entity>
     </a-scene>
 </body>
 </html>
