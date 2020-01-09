@@ -55,6 +55,7 @@
 		    init: function () {
 			    var el = this.el;
 			    el.addEventListener('abuttondown', function (evt) {
+				    document.querySelector('#txt').setAttribute('value', 'A - ' + evt.detail.body.el.tagName);
 				    evt.detail.body.el.setAttribute('visible', evt.detail.body.el.getAttribute('visible'));
 			    });
 		    }
@@ -64,7 +65,7 @@
 		    init: function () {
 			    var el = this.el;
 			    el.addEventListener('gripdown', function (evt) {
-			    	document.querySelector('#txt').setAttribute('value', evt.detail.body.el.tagName);
+			    	document.querySelector('#txt').setAttribute('value', 'GRIP - ' + evt.detail.body.el.tagName);
 				    evt.detail.body.el.setAttribute('visible', evt.detail.body.el.getAttribute('visible'));
 			    });
 		    }
@@ -116,8 +117,8 @@
             <a-camera id="camera" position="-40 1.6 -50" universal-controls kinematic-body>
                 <a-entity cursor="type: gaze" visible="false"></a-entity>
             </a-camera>
-            <a-entity hand-controls="left" rotation="-90 0 0" super-hands laser-controls raycaster="objects: .building, .sol" cursor></a-entity>
-            <a-entity hand-controls="right" rotation="90 0 0" super-hands laser-controls raycaster="objects: .building, .sol" cursor></a-entity>
+            <a-entity hand-controls="left" rotation="-90 0 0" super-hands laser-controls raycaster="objects: .building, .sol" cursor grip-down-listener></a-entity>
+            <a-entity hand-controls="right" rotation="90 0 0" super-hands laser-controls raycaster="objects: .building, .sol" cursor a-button-listener></a-entity>
         </a-entity>
     </a-scene>
 </body>
