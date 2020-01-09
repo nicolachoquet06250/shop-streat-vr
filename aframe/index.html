@@ -9,9 +9,52 @@
     <script src="https://unpkg.com/super-hands@2.0.2/dist/super-hands.min.js"></script>
 
     <script>
-        window.addEventListener('load', () => {
+	    AFRAME.registerComponent('toggle', {
+		    schema: {
+			    hover: {default: 'onHover'},
+			    out: {default: 'onOut'}
+		    },
 
-        });
+            getData: function() {
+		    	return this.data;
+            },
+
+            getElem() {
+		    	return this.el;
+            },
+
+		    init: function () {
+		    	var data = this.data;
+			    var el = this.el;
+
+		    	var callbacks = {
+				    onHover: function () {
+					    el.setAttribute('color', 'blue');
+				    },
+				    onOut: function () {
+					    el.setAttribute('color', 'white');
+				    }
+                };
+
+			    if(data.hover in callbacks) {
+				    el.addEventListener('mouseenter', callbacks[data.hover]);
+			    }
+			    if(data.out in callbacks) {
+				    el.addEventListener('mouseleave', callbacks[data.out]);
+			    }
+		    }
+	    });
+
+	    AFRAME.registerComponent('a-button-listener', {
+		    init: function () {
+			    var el = this.el;
+			    el.addEventListener('abuttondown', function (evt) {
+				    el.setAttribute('visible', !el.getAttribute('visible'));
+			    });
+		    }
+	    });
+
+        window.addEventListener('load', () => {});
     </script>
 </head>
 <body>
@@ -28,12 +71,12 @@
             depth: profondeur
         -->
 
-        <a-box class="building" position="-49.5 3 -52" rotation="0 -90 0" width="2" height="6"></a-box>
-        <a-box class="building" position="-49 6 -53.5" width="2" height="12" depth="1"></a-box>
-        <a-box class="building" position="-47 3 -53.5" width="2" height="6" depth="1"></a-box>
-        <a-box class="building" position="-45 1 -53.5" width="2" height="2" depth="1"></a-box>
-        <a-box class="building" position="-43 1.5 -53.5" width="2" height="3" depth="1"></a-box>
-        <a-box class="building" position="-39 3 -53.5" width="6" height="6" depth="1"></a-box>
+        <a-box class="building" position="-49.5 3 -52" rotation="0 -90 0" width="2" height="6" toggle></a-box>
+        <a-box class="building" position="-49 6 -53.5" width="2" height="12" depth="1" toggle></a-box>
+        <a-box class="building" position="-47 3 -53.5" width="2" height="6" depth="1" toggle></a-box>
+        <a-box class="building" position="-45 1 -53.5" width="2" height="2" depth="1" toggle></a-box>
+        <a-box class="building" position="-43 1.5 -53.5" width="2" height="3" depth="1" toggle></a-box>
+        <a-box class="building" position="-39 3 -53.5" width="6" height="6" depth="1" toggle></a-box>
 
         <a-light type="ambient" color="#445451"></a-light>
         <a-light type="point" intensity="2" position="2 4 4"></a-light>
@@ -43,9 +86,11 @@
         <a-entity class="sol" environment="shadow: true; shadowSize: 10;"></a-entity>
 
         <a-entity id="player">
-            <a-camera id="camera" position="-40 1.6 -50" universal-controls kinematic-body></a-camera>
-            <a-entity hand-controls="left" rotation="-90 0 0" laser-controls raycaster="objects: .building, .sol"></a-entity>
-            <a-entity hand-controls="right" rotation="90 0 0" laser-controls raycaster="objects: .building, .sol"></a-entity>
+            <a-camera id="camera" position="-40 1.6 -50" universal-controls kinematic-body>
+                <a-cursor visible="false"></a-cursor>
+            </a-camera>
+            <a-entity hand-controls="left" rotation="-90 0 0" super-hands laser-controls raycaster="objects: .building, .sol" a-button-listener></a-entity>
+            <a-entity hand-controls="right" rotation="90 0 0" super-hands laser-controls raycaster="objects: .building, .sol"></a-entity>
         </a-entity>
     </a-scene>
 </body>
