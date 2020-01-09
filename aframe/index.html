@@ -88,21 +88,39 @@
 			    var callbacks = {
 				    onHover: function () {
 					    el.setAttribute('color', 'blue');
-					    document.querySelector('#right').addEventListener('abuttondown', function (evt) {
+					    let left = document.querySelector('#left');
+					    let right = document.querySelector('#right');
+
+					    right.addEventListener('abuttondown', function (evt) {
 						    el.setAttribute('visible', !el.getAttribute('visible'));
 					    });
-					    document.querySelector('#left').addEventListener('xbuttondown', function (evt) {
+					    left.addEventListener('xbuttondown', function (evt) {
 						    el.setAttribute('visible', !el.getAttribute('visible'));
 					    });
-                        document.querySelector('#right').addEventListener('gripdown', function (evt) {
+                        right.addEventListener('gripdown', function (evt) {
 	                        el.setAttribute('visible', !el.getAttribute('visible'));
                         });
-					    document.querySelector('#left').addEventListener('gripdown', function (evt) {
+					    left.addEventListener('gripdown', function (evt) {
 						    el.setAttribute('visible', !el.getAttribute('visible'));
 					    });
 				    },
 				    onOut: function () {
 					    el.setAttribute('color', 'white');
+					    let left = document.querySelector('#left');
+					    let right = document.querySelector('#right');
+
+					    right.removeEventListener('abuttondown', function (evt) {
+						    el.setAttribute('visible', !el.getAttribute('visible'));
+					    });
+					    left.removeEventListener('xbuttondown', function (evt) {
+						    el.setAttribute('visible', !el.getAttribute('visible'));
+					    });
+					    right.removeEventListener('gripdown', function (evt) {
+						    el.setAttribute('visible', !el.getAttribute('visible'));
+					    });
+					    left.removeEventListener('gripdown', function (evt) {
+						    el.setAttribute('visible', !el.getAttribute('visible'));
+					    });
 				    }
 			    };
 
@@ -135,7 +153,7 @@
     </script>
 </head>
 <body>
-    <a-scene physics="friction: 0.1; restitution: 0.5; debug: true">
+    <a-scene physics="friction: 0.1; restitution: 0.5; debug: false">
         <a-assets>
             <a-asset-item id="cloud" src="../models/nuage.obj"></a-asset-item>
         </a-assets>
