@@ -9,64 +9,6 @@
     <script src="https://unpkg.com/super-hands@2.0.2/dist/super-hands.min.js"></script>
 
     <script>
-	    /*AFRAME.registerComponent('toggle', {
-		    schema: {
-			    hover: {default: 'onHover'},
-			    out: {default: 'onOut'}
-		    },
-
-            getData: function() {
-		    	return this.data;
-            },
-
-            getElem() {
-		    	return this.el;
-            },
-
-		    init: function () {
-		    	var data = this.data;
-			    var el = this.el;
-
-		    	var callbacks = {
-				    onHover: function () {
-					    el.setAttribute('color', 'blue');
-					    el.addEventListener('click', () => {
-					    	el.setAttribute('visible', !el.setAttribute('visible'));
-                        });
-					    document.querySelector('#right').addEventListener('abuttondown', function (evt) {
-						    document.querySelector('#txt').setAttribute('value', 'A - ' + evt.detail.body.el.tagName);
-						    evt.detail.body.el.setAttribute('visible', evt.detail.body.el.getAttribute('visible'));
-					    });
-					    document.querySelector('#left').addEventListener('gripdown', function (evt) {
-						    document.querySelector('#txt').setAttribute('value', 'GRIP - ' + evt.detail.body.el.tagName);
-						    evt.detail.body.el.setAttribute('visible', evt.detail.body.el.getAttribute('visible'));
-					    });
-				    },
-				    onOut: function () {
-					    el.setAttribute('color', 'white');
-					    el.removeEventListener('click', () => {
-						    el.setAttribute('visible', !el.setAttribute('visible'));
-					    });
-					    document.querySelector('#right').removeEventListener('abuttondown', function (evt) {
-						    document.querySelector('#txt').setAttribute('value', 'A - ' + evt.detail.body.el.tagName);
-						    evt.detail.body.el.setAttribute('visible', evt.detail.body.el.getAttribute('visible'));
-					    });
-					    document.querySelector('#left').removeEventListener('gripdown', function (evt) {
-						    document.querySelector('#txt').setAttribute('value', 'GRIP - ' + evt.detail.body.el.tagName);
-						    evt.detail.body.el.setAttribute('visible', evt.detail.body.el.getAttribute('visible'));
-					    });
-				    }
-                };
-
-			    if(data.hover in callbacks) {
-				    el.addEventListener('mouseenter', callbacks[data.hover]);
-			    }
-			    if(data.out in callbacks) {
-				    el.addEventListener('mouseleave', callbacks[data.out]);
-			    }
-		    }
-	    });*/
-
 	    AFRAME.registerComponent('toggle', {
 		    schema: {
 			    hover: {default: 'onHover'},
