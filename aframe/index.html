@@ -49,7 +49,7 @@
 		    init: function () {
 			    var el = this.el;
 			    el.addEventListener('abuttondown', function (evt) {
-				    el.setAttribute('visible', !el.getAttribute('visible'));
+				    evt.detail.body.el.setAttribute('visible', evt.detail.body.el.getAttribute('visible'));
 			    });
 		    }
 	    });
@@ -58,10 +58,19 @@
 		    init: function () {
 			    var el = this.el;
 			    el.addEventListener('gripdown', function (evt) {
-				    el.setAttribute('visible', !el.getAttribute('visible'));
+				    evt.detail.body.el.setAttribute('visible', evt.detail.body.el.getAttribute('visible'));
 			    });
 		    }
 	    });
+
+	    AFRAME.registerComponent('collide', {
+	    	init: function () {
+                var el = this.el;
+                el.addEventListener('collide', function (evt) {
+                    evt.detail.body.el.setAttribute('visible', evt.detail.body.el.getAttribute('visible'));
+                })
+		    }
+        });
 
         window.addEventListener('load', () => {});
     </script>
@@ -80,12 +89,14 @@
             depth: profondeur
         -->
 
-        <a-box class="building" position="-49.5 3 -52" rotation="0 -90 0" width="2" height="6" toggle></a-box>
-        <a-box class="building" position="-49 6 -53.5" width="2" height="12" depth="1" toggle></a-box>
-        <a-box class="building" position="-47 3 -53.5" width="2" height="6" depth="1" toggle></a-box>
-        <a-box class="building" position="-45 1 -53.5" width="2" height="2" depth="1" toggle></a-box>
-        <a-box class="building" position="-43 1.5 -53.5" width="2" height="3" depth="1" toggle></a-box>
-        <a-box class="building" position="-39 3 -53.5" width="6" height="6" depth="1" toggle></a-box>
+        <!-- element collisionné: evt.detail.body.el -->
+
+        <a-box class="building" position="-49.5 3 -52" rotation="0 -90 0" width="2" height="6" toggle collide static-body></a-box>
+        <a-box class="building" position="-49 6 -53.5" width="2" height="12" depth="1" toggle collide static-body></a-box>
+        <a-box class="building" position="-47 3 -53.5" width="2" height="6" depth="1" toggle collide static-body></a-box>
+        <a-box class="building" position="-45 1 -53.5" width="2" height="2" depth="1" toggle collide static-body></a-box>
+        <a-box class="building" position="-43 1.5 -53.5" width="2" height="3" depth="1" toggle collide static-body></a-box>
+        <a-box class="building" position="-39 3 -53.5" width="6" height="6" depth="1" toggle collide static-body></a-box>
 
         <a-light type="ambient" color="#445451"></a-light>
         <a-light type="point" intensity="2" position="2 4 4"></a-light>
