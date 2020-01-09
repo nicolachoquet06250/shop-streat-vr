@@ -54,7 +54,7 @@
 		    }
 	    });
 
-	    AFRAME.registerComponent('grip-down', {
+	    AFRAME.registerComponent('grip-down-listener', {
 		    init: function () {
 			    var el = this.el;
 			    el.addEventListener('gripdown', function (evt) {
@@ -98,8 +98,8 @@
             <a-camera id="camera" position="-40 1.6 -50" universal-controls kinematic-body>
                 <a-cursor visible="false"></a-cursor>
             </a-camera>
-            <a-entity hand-controls="left" rotation="-90 0 0" super-hands laser-controls raycaster="objects: .building, .sol" a-button-listener></a-entity>
-            <a-entity hand-controls="right" rotation="90 0 0" super-hands laser-controls raycaster="objects: .building, .sol"></a-entity>
+            <a-entity hand-controls="left" rotation="-90 0 0" super-hands laser-controls raycaster="objects: .building, .sol" grip-down-listener></a-entity>
+            <a-entity hand-controls="right" rotation="90 0 0" super-hands laser-controls raycaster="objects: .building, .sol" a-button-listener></a-entity>
         </a-entity>
     </a-scene>
 </body>
