@@ -104,10 +104,12 @@
         <a-entity obj-model="obj: #cloud" position="-50 10 -50" scale="20 0 10" color="white"></a-entity>
         <a-entity obj-model="obj: #cloud" position="-40 10 -60" scale="20 0 10" color="white"></a-entity>
 
-        <a-plane class="sol" position="-50 0 -50" rotation="-90 0 0" width="2" height="2" color="white" toggle collide static-body></a-plane>
-        <a-plane class="sol" position="-52 0 -50" rotation="-90 0 0" width="2" height="2" color="white" toggle collide static-body></a-plane>
-        <a-plane class="sol" position="-52 0 -52" rotation="-90 0 0" width="2" height="2" color="white" toggle collide static-body></a-plane>
-        <a-plane class="sol" position="-50 0 -52" rotation="-90 0 0" width="2" height="2" color="white" toggle collide static-body></a-plane>
+        <a-entity id="chausset">
+            <a-plane class="sol" position="-50 0 -50" rotation="-90 0 0" width="2" height="2" color="white" toggle collide static-body></a-plane>
+            <a-plane class="sol" position="-52 0 -50" rotation="-90 0 0" width="2" height="2" color="white" toggle collide static-body></a-plane>
+            <a-plane class="sol" position="-52 0 -52" rotation="-90 0 0" width="2" height="2" color="white" toggle collide static-body></a-plane>
+            <a-plane class="sol" position="-50 0 -52" rotation="-90 0 0" width="2" height="2" color="white" toggle collide static-body></a-plane>
+        </a-entity>
         <a-sky color="skyblue"></a-sky>
 
         <a-entity id="player" position="-40 1.6 -50">
