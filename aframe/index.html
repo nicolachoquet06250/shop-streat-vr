@@ -20,41 +20,48 @@
 			    var el = this.el;
 
 			    var callbacks = {
+			        movePlayerEvent: function (evt) {
+                        let player = document.querySelector('#player');
+                        let building = evt.target.body.el;
+                        let position = evt.target.body.position;
+                        let width = building.getAttribute('width');
+                        let depth = building.getAttribute('depth');
+
+                        let playerPosition = player.getAttribute('position');
+                        player.setAttribute('position', {
+                            x: position.x,
+                            y: playerPosition.y,
+                            z: position.z
+                        });
+
+                        // console.log(evt.target.body.el, evt.target.body.position);
+                    },
+
 				    onHover: function () {
-					    el.setAttribute('color', 'blue');/*
+					    el.setAttribute('color', 'blue');
 					    let left = document.querySelector('#left');
 					    let right = document.querySelector('#right');
 
-					    right.addEventListener('abuttondown', function (evt) {
-						    el.setAttribute('visible', !el.getAttribute('visible'));
-					    });
-					    left.addEventListener('xbuttondown', function (evt) {
-						    el.setAttribute('visible', !el.getAttribute('visible'));
-					    });
-                        right.addEventListener('gripdown', function (evt) {
-	                        el.setAttribute('visible', !el.getAttribute('visible'));
-                        });
-					    left.addEventListener('gripdown', function (evt) {
-						    el.setAttribute('visible', !el.getAttribute('visible'));
-					    });*/
+					    console.log('Hover', el);
+
+					    right.addEventListener('abuttondown', evt => el.setAttribute('visible', !el.getAttribute('visible')));
+					    left.addEventListener('xbuttondown', evt => el.setAttribute('visible', !el.getAttribute('visible')));
+                        right.addEventListener('gripdown', evt => el.setAttribute('visible', !el.getAttribute('visible')));
+					    left.addEventListener('gripdown', evt => el.setAttribute('visible', !el.getAttribute('visible')));
+					    el.addEventListener('click', evt => callbacks.movePlayerEvent(evt));
 				    },
 				    onOut: function () {
-					    el.setAttribute('color', 'white');/*
+					    el.setAttribute('color', 'white');
 					    let left = document.querySelector('#left');
 					    let right = document.querySelector('#right');
 
-					    right.removeEventListener('abuttondown', function (evt) {
-						    el.setAttribute('visible', !el.getAttribute('visible'));
-					    });
-					    left.removeEventListener('xbuttondown', function (evt) {
-						    el.setAttribute('visible', !el.getAttribute('visible'));
-					    });
-					    right.removeEventListener('gripdown', function (evt) {
-						    el.setAttribute('visible', !el.getAttribute('visible'));
-					    });
-					    left.removeEventListener('gripdown', function (evt) {
-						    el.setAttribute('visible', !el.getAttribute('visible'));
-					    });*/
+                        console.log('Out', el);
+
+                        right.removeEventListener('abuttondown', evt => el.setAttribute('visible', !el.getAttribute('visible')));
+                        left.removeEventListener('xbuttondown', evt => el.setAttribute('visible', !el.getAttribute('visible')));
+                        right.removeEventListener('gripdown', evt => el.setAttribute('visible', !el.getAttribute('visible')));
+                        left.removeEventListener('gripdown', evt => el.setAttribute('visible', !el.getAttribute('visible')));
+                        el.addEventListener('click', evt => callbacks.movePlayerEvent(evt));
 				    }
 			    };
 
@@ -64,22 +71,6 @@
 			    if(data.out in callbacks) {
 				    el.addEventListener('mouseleave', callbacks[data.out]);
 			    }
-
-			    let left = document.querySelector('#left');
-			    let right = document.querySelector('#right');
-
-			    right.addEventListener('abuttondown', function (evt) {
-				    el.setAttribute('visible', !el.getAttribute('visible'));
-			    });
-			    left.addEventListener('xbuttondown', function (evt) {
-				    el.setAttribute('visible', !el.getAttribute('visible'));
-			    });
-			    right.addEventListener('gripdown', function (evt) {
-				    el.setAttribute('visible', !el.getAttribute('visible'));
-			    });
-			    left.addEventListener('gripdown', function (evt) {
-				    el.setAttribute('visible', !el.getAttribute('visible'));
-			    });
 		    }
 	    });
     </script>
@@ -100,22 +91,27 @@
 
         <!-- element collisionné: evt.detail.body.el -->
 
-        <a-box class="building" position="-49.5 3 -52" rotation="0 -90 0" width="2" height="6" toggle collide static-body></a-box>
-        <a-box class="building" position="-49 6 -53.5" width="2" height="12" depth="1" toggle collide static-body></a-box>
-        <a-box class="building" position="-47 3 -53.5" width="2" height="6" depth="1" toggle collide static-body></a-box>
-        <a-box class="building" position="-45 1 -53.5" width="2" height="2" depth="1" toggle collide static-body></a-box>
-        <a-box class="building" position="-43 1.5 -53.5" width="2" height="3" depth="1" toggle collide static-body></a-box>
-        <a-box class="building" position="-39 3 -53.5" width="6" height="6" depth="1" toggle collide static-body></a-box>
+        <a-box class="building" position="-49.5 3 -52" rotation="0 -90 0" width="2" height="6"static-body></a-box>
+        <a-box class="building" position="-49 6 -53.5" width="2" height="12" depth="1" static-body></a-box>
+        <a-box class="building" position="-47 3 -53.5" width="2" height="6" depth="1" static-body></a-box>
+        <a-box class="building" position="-45 1 -53.5" width="2" height="2" depth="1" static-body></a-box>
+        <a-box class="building" position="-43 1.5 -53.5" width="2" height="3" depth="1" static-body></a-box>
+        <a-box class="building" position="-39 3 -53.5" width="6" height="6" depth="1" static-body></a-box>
 
         <a-light type="ambient" color="#445451"></a-light>
         <a-light type="point" intensity="2" position="2 4 4"></a-light>
 
         <a-entity obj-model="obj: #cloud" position="-50 10 -50" scale="20 0 10" color="white"></a-entity>
         <a-entity obj-model="obj: #cloud" position="-40 10 -60" scale="20 0 10" color="white"></a-entity>
-        <a-entity class="sol" environment="shadow: true; shadowSize: 10;" toogle></a-entity>
 
-        <a-entity id="player">
-            <a-camera id="camera" position="-40 1.6 -50" universal-controls kinematic-body>
+        <a-plane class="sol" position="-50 0 -50" rotation="-90 0 0" width="2" height="2" color="white" toggle collide static-body></a-plane>
+        <a-plane class="sol" position="-52 0 -50" rotation="-90 0 0" width="2" height="2" color="white" toggle collide static-body></a-plane>
+        <a-plane class="sol" position="-52 0 -52" rotation="-90 0 0" width="2" height="2" color="white" toggle collide static-body></a-plane>
+        <a-plane class="sol" position="-50 0 -52" rotation="-90 0 0" width="2" height="2" color="white" toggle collide static-body></a-plane>
+        <a-sky color="skyblue"></a-sky>
+
+        <a-entity id="player" position="-40 1.6 -50">
+            <a-camera id="camera" universal-controls kinematic-body>
                 <a-entity cursor="type: gaze" visible="false"></a-entity>
             </a-camera>
             <a-entity id="left"
