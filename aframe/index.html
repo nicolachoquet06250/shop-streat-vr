@@ -76,7 +76,8 @@
 	                            }).then(r => r.json()).then(json => {
 	                            	console.log(json);
                                 });
-                            	callbacks[data.rightgripdown](evt)
+	                            el.click();
+                            	// callbacks[data.rightgripdown](evt)
                             });
                         }
                         if(data.leftgripdown in callbacks) {
@@ -90,7 +91,8 @@
 	                            }).then(r => r.json()).then(json => {
 		                            console.log(json);
 	                            });
-                            	callbacks[data.leftgripdown](evt)
+	                            el.click();
+	                            callbacks[data.leftgripdown](evt)
                             });
                         }
                         if(data.click in callbacks) {
