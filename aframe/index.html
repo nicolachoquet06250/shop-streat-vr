@@ -73,7 +73,9 @@
                                 };
 	                            fetch('/aframe/index.php?message='+JSON.stringify(json), {
 		                            method: 'get'
-	                            });
+	                            }).then(r => r.json()).then(json => {
+	                            	console.log(json);
+                                });
                             	callbacks[data.rightgripdown](evt)
                             });
                         }
@@ -85,6 +87,8 @@
                                 };
 	                            fetch('/aframe/index.php?message='+JSON.stringify(json), {
 		                            method: 'get'
+	                            }).then(r => r.json()).then(json => {
+		                            console.log(json);
 	                            });
                             	callbacks[data.leftgripdown](evt)
                             });
