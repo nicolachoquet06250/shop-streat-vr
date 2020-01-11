@@ -41,6 +41,11 @@
 
                         player.setAttribute('position', newPlayerPosition);
                     },
+                    onTeleportInside: function(evt) {
+			        	let position = evt.target.body.position;
+			        	console.log(`I'm teleporting inside the building width position ${position.x} ${position.z}`);
+			        	window.location.href = 'inBuilding.html';
+                    },
 
 				    onHover: function (evt) {
 					    el.setAttribute('color', 'blue');
@@ -96,22 +101,6 @@
                             el.removeEventListener('click', evt => callbacks[data.click](evt));
                         }
 				    },
-
-				    onClick: function (evt) {
-                        callbacks.movePlayerEvent(evt);
-                    },
-                    onAButtonDown: function (evt) {
-                        callbacks.movePlayerEvent(evt);
-                    },
-                    onXButtonDown: function (evt) {
-                        callbacks.movePlayerEvent(evt);
-                    },
-                    onRightGripDown: function (evt) {
-                        callbacks.movePlayerEvent(evt);
-                    },
-                    onLeftGripDown: function (evt) {
-                        callbacks.movePlayerEvent(evt);
-                    }
 			    };
 
 			    if(data.hover in callbacks) {
@@ -141,26 +130,24 @@
             depth: profondeur
         -->
 
-        <!-- element collisionné: evt.detail.body.el -->
-
         <a-box class="building" position="-49.5 3 -52" rotation="0 -90 0" width="2" height="6"
-               virtual-teleportation="click: onTeleporteInside; abuttondown: onTeleporteInside; xbuttondown: onTeleporteInside; leftgripdown: onTeleporteInside; rightgripdown: onTeleporteInside"
-               collide dynamic-body></a-box>
+               virtual-teleportation="click: onTeleportInside; abuttondown: onTeleportInside; xbuttondown: onTeleportInside; leftgripdown: onTeleportInside; rightgripdown: onTeleportInside"
+               collide static-body></a-box>
         <a-box class="building" position="-49 6 -53.5" width="2" height="12" depth="1"
-               virtual-teleportation="click: onTeleporteInside; abuttondown: onTeleporteInside; xbuttondown: onTeleporteInside; leftgripdown: onTeleporteInside; rightgripdown: onTeleporteInside"
-               collide dynamic-body></a-box>
+               virtual-teleportation="click: onTeleportInside; abuttondown: onTeleportInside; xbuttondown: onTeleportInside; leftgripdown: onTeleportInside; rightgripdown: onTeleportInside"
+               collide static-body></a-box>
         <a-box class="building" position="-47 3 -53.5" width="2" height="6" depth="1"
-               virtual-teleportation="click: onTeleporteInside; abuttondown: onTeleporteInside; xbuttondown: onTeleporteInside; leftgripdown: onTeleporteInside; rightgripdown: onTeleporteInside"
-               collide dynamic-body></a-box>
+               virtual-teleportation="click: onTeleportInside; abuttondown: onTeleportInside; xbuttondown: onTeleportInside; leftgripdown: onTeleportInside; rightgripdown: onTeleportInside"
+               collide static-body></a-box>
         <a-box class="building" position="-45 1 -53.5" width="2" height="2" depth="1"
-               virtual-teleportation="click: onTeleporteInside; abuttondown: onTeleporteInside; xbuttondown: onTeleporteInside; leftgripdown: onTeleporteInside; rightgripdown: onTeleporteInside"
-               collide dynamic-body></a-box>
+               virtual-teleportation="click: onTeleportInside; abuttondown: onTeleportInside; xbuttondown: onTeleportInside; leftgripdown: onTeleportInside; rightgripdown: onTeleportInside"
+               collide static-body></a-box>
         <a-box class="building" position="-43 1.5 -53.5" width="2" height="3" depth="1"
-               virtual-teleportation="click: onTeleporteInside; abuttondown: onTeleporteInside; xbuttondown: onTeleporteInside; leftgripdown: onTeleporteInside; rightgripdown: onTeleporteInside"
-               collide dynamic-body></a-box>
+               virtual-teleportation="click: onTeleportInside; abuttondown: onTeleportInside; xbuttondown: onTeleportInside; leftgripdown: onTeleportInside; rightgripdown: onTeleportInside"
+               collide static-body></a-box>
         <a-box class="building" position="-39 3 -53.5" width="6" height="6" depth="1"
-               virtual-teleportation="click: onTeleporteInside; abuttondown: onTeleporteInside; xbuttondown: onTeleporteInside; leftgripdown: onTeleporteInside; rightgripdown: onTeleporteInside"
-               collide dynamic-body></a-box>
+               virtual-teleportation="click: onTeleportInside; abuttondown: onTeleportInside; xbuttondown: onTeleportInside; leftgripdown: onTeleportInside; rightgripdown: onTeleportInside"
+               collide static-body></a-box>
 
         <a-light type="ambient" color="#445451"></a-light>
         <a-light type="point" intensity="2" position="2 4 4"></a-light>
