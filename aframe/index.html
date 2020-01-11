@@ -66,10 +66,28 @@
                             left.addEventListener('ybuttondown', evt => callbacks[data.ybuttondown](evt));
                         }
                         if(data.rightgripdown in callbacks) {
-                            right.addEventListener('gripdown', evt => callbacks[data.rightgripdown](evt));
+                            right.addEventListener('gripdown', evt => {
+                            	let json = {
+                            		method: data.rightgripdown,
+                                    objCollided: el.getAttribute('class')
+                                };
+	                            fetch('/aframe/index.php?message='+JSON.stringify(json), {
+		                            method: 'get'
+	                            });
+                            	callbacks[data.rightgripdown](evt)
+                            });
                         }
                         if(data.leftgripdown in callbacks) {
-                            left.addEventListener('gripdown', evt => callbacks[data.leftgripdown](evt));
+                            left.addEventListener('gripdown', evt => {
+	                            let json = {
+		                            method: data.rightgripdown,
+		                            objCollided: el.getAttribute('class')
+                                };
+	                            fetch('/aframe/index.php?message='+JSON.stringify(json), {
+		                            method: 'get'
+	                            });
+                            	callbacks[data.leftgripdown](evt)
+                            });
                         }
                         if(data.click in callbacks) {
                             el.addEventListener('click', evt => callbacks[data.click](evt));
