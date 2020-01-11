@@ -313,18 +313,18 @@
 
         <a-entity id="player" position="-40 1.6 -50">
             <a-camera id="camera" universal-controls kinematic-body userHeight="1.6">
-                <a-cursor raycaster="objects: .building, .floor-tile"></a-cursor>
+                <a-cursor fuse="true" raycaster="objects: .building, .floor-tile"></a-cursor>
             </a-camera>
             <a-entity id="left"
                       hand-controls="left"
                       rotation="-90 0 0"
                       raycaster="objects: .building .floor-tile"
-                      super-hands laser-controls cursor></a-entity>
+                      super-hands laser-controls cursor="fuse: true"></a-entity>
             <a-entity id="right"
                       hand-controls="right"
                       rotation="90 0 0"
                       raycaster="objects: .building .floor-tile"
-                      super-hands laser-controls cursor></a-entity>
+                      super-hands laser-controls cursor="fuse: true"></a-entity>
         </a-entity>
     </a-scene>
 </body>
