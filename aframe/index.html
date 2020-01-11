@@ -71,7 +71,7 @@
                             		method: data.rightgripdown,
                                     objCollided: el.getAttribute('class')
                                 };
-	                            fetch('/aframe/index.php?message='+JSON.stringify(json), {
+	                            fetch('/aframe/log.php?message='+JSON.stringify(json), {
 		                            method: 'get'
 	                            }).then(r => r.json()).then(json => {
 	                            	console.log(json);
@@ -85,7 +85,7 @@
 		                            method: data.rightgripdown,
 		                            objCollided: el.getAttribute('class')
                                 };
-	                            fetch('/aframe/index.php?message='+JSON.stringify(json), {
+	                            fetch('/aframe/log.php?message='+JSON.stringify(json), {
 		                            method: 'get'
 	                            }).then(r => r.json()).then(json => {
 		                            console.log(json);
