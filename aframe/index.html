@@ -54,22 +54,22 @@
 					    let right = document.querySelector('#right');
 
 					    if(data.abuttondown in callbacks) {
-                            right.addEventListener('abuttondown', evt => callbacks[data.abuttondown](evt));
+                            el.addEventListener('abuttondown', evt => callbacks[data.abuttondown](evt));
                         }
                         if(data.bbuttondown in callbacks) {
-                            right.addEventListener('bbuttondown', evt => callbacks[data.bbuttondown](evt));
+                            el.addEventListener('bbuttondown', evt => callbacks[data.bbuttondown](evt));
                         }
                         if(data.xbuttondown in callbacks) {
-                            left.addEventListener('xbuttondown', evt => callbacks[data.xbuttondown](evt));
+                            el.addEventListener('xbuttondown', evt => callbacks[data.xbuttondown](evt));
                         }
                         if(data.ybuttondown in callbacks) {
-                            left.addEventListener('ybuttondown', evt => callbacks[data.ybuttondown](evt));
+                            el.addEventListener('ybuttondown', evt => callbacks[data.ybuttondown](evt));
                         }
                         if(data.rightgripdown in callbacks) {
-                            right.addEventListener('gripdown', evt => callbacks[data.rightgripdown](evt));
+                            el.addEventListener('gripdown', evt => callbacks[data.rightgripdown](evt));
                         }
                         if(data.leftgripdown in callbacks) {
-                            left.addEventListener('gripdown', evt => callbacks[data.leftgripdown](evt));
+                            el.addEventListener('gripdown', evt => callbacks[data.leftgripdown](evt));
                         }
                         if(data.click in callbacks) {
                             el.addEventListener('click', evt => callbacks[data.click](evt));
@@ -81,22 +81,22 @@
 					    let right = document.querySelector('#right');
 
                         if(data.abuttondown in callbacks) {
-                            right.removeEventListener('abuttondown', evt => callbacks[data.abuttondown](evt));
+                            el.removeEventListener('abuttondown', evt => callbacks[data.abuttondown](evt));
                         }
                         if(data.bbuttondown in callbacks) {
-                            right.removeEventListener('bbuttondown', evt => callbacks[data.bbuttondown](evt));
+                            el.removeEventListener('bbuttondown', evt => callbacks[data.bbuttondown](evt));
                         }
                         if(data.xbuttondown in callbacks) {
-                            left.removeEventListener('xbuttondown', evt => callbacks[data.xbuttondown](evt));
+                            el.removeEventListener('xbuttondown', evt => callbacks[data.xbuttondown](evt));
                         }
                         if(data.ybuttondown in callbacks) {
-                            left.removeEventListener('ybuttondown', evt => callbacks[data.ybuttondown](evt));
+                            el.removeEventListener('ybuttondown', evt => callbacks[data.ybuttondown](evt));
                         }
                         if(data.rightgripdown in callbacks) {
-                            right.removeEventListener('gripdown', evt => callbacks[data.rightgripdown](evt));
+                            el.removeEventListener('gripdown', evt => callbacks[data.rightgripdown](evt));
                         }
                         if(data.leftgripdown in callbacks) {
-                            left.removeEventListener('gripdown', evt => callbacks[data.leftgripdown](evt));
+                            el.removeEventListener('gripdown', evt => callbacks[data.leftgripdown](evt));
                         }
                         if(data.click in callbacks) {
                             el.removeEventListener('click', evt => callbacks[data.click](evt));
@@ -320,12 +320,12 @@
                       hand-controls="left"
                       rotation="-90 0 0"
                       raycaster="objects: .building .floor-tile"
-                      super-hands laser-controls controller-cursor downEvents="gripdown" upEvents="gripup"></a-entity>
+                      super-hands laser-controls controller-cursor></a-entity>
             <a-entity id="right"
                       hand-controls="right"
                       rotation="90 0 0"
                       raycaster="objects: .building .floor-tile"
-                      super-hands laser-controls controller-cursor downEvents="gripdown" upEvents="gripup"></a-entity>
+                      super-hands laser-controls controller-cursor></a-entity>
         </a-entity>
     </a-scene>
 </body>
