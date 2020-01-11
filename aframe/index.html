@@ -54,25 +54,27 @@
 					    let right = document.querySelector('#right');
 
 					    if(data.abuttondown in callbacks) {
-                            el.addEventListener('abuttondown', evt => callbacks[data.abuttondown](evt));
+                            right.addEventListener('abuttondown', evt => callbacks[data.abuttondown](evt));
                         }
                         if(data.bbuttondown in callbacks) {
-                            el.addEventListener('bbuttondown', evt => callbacks[data.bbuttondown](evt));
+                            right.addEventListener('bbuttondown', evt => callbacks[data.bbuttondown](evt));
                         }
                         if(data.xbuttondown in callbacks) {
-                            el.addEventListener('xbuttondown', evt => callbacks[data.xbuttondown](evt));
+                            left.addEventListener('xbuttondown', evt => callbacks[data.xbuttondown](evt));
                         }
                         if(data.ybuttondown in callbacks) {
-                            el.addEventListener('ybuttondown', evt => callbacks[data.ybuttondown](evt));
+                            left.addEventListener('ybuttondown', evt => callbacks[data.ybuttondown](evt));
                         }
                         if(data.rightgripdown in callbacks) {
-                            el.addEventListener('gripdown', evt => callbacks[data.rightgripdown](evt));
+                            right.addEventListener('gripdown', evt => callbacks[data.rightgripdown](evt));
                         }
                         if(data.leftgripdown in callbacks) {
-                            el.addEventListener('gripdown', evt => callbacks[data.leftgripdown](evt));
+                            left.addEventListener('gripdown', evt => callbacks[data.leftgripdown](evt));
                         }
                         if(data.click in callbacks) {
                             el.addEventListener('click', evt => callbacks[data.click](evt));
+	                        right.addEventListener('click', evt => callbacks[data.click](evt));
+	                        left.addEventListener('click', evt => callbacks[data.click](evt));
                         }
 				    },
 				    onOut: function (evt) {
@@ -81,25 +83,27 @@
 					    let right = document.querySelector('#right');
 
                         if(data.abuttondown in callbacks) {
-                            el.removeEventListener('abuttondown', evt => callbacks[data.abuttondown](evt));
+                            right.removeEventListener('abuttondown', evt => callbacks[data.abuttondown](evt));
                         }
                         if(data.bbuttondown in callbacks) {
-                            el.removeEventListener('bbuttondown', evt => callbacks[data.bbuttondown](evt));
+                            right.removeEventListener('bbuttondown', evt => callbacks[data.bbuttondown](evt));
                         }
                         if(data.xbuttondown in callbacks) {
-                            el.removeEventListener('xbuttondown', evt => callbacks[data.xbuttondown](evt));
+                            left.removeEventListener('xbuttondown', evt => callbacks[data.xbuttondown](evt));
                         }
                         if(data.ybuttondown in callbacks) {
-                            el.removeEventListener('ybuttondown', evt => callbacks[data.ybuttondown](evt));
+                            left.removeEventListener('ybuttondown', evt => callbacks[data.ybuttondown](evt));
                         }
                         if(data.rightgripdown in callbacks) {
-                            el.removeEventListener('gripdown', evt => callbacks[data.rightgripdown](evt));
+                            right.removeEventListener('gripdown', evt => callbacks[data.rightgripdown](evt));
                         }
                         if(data.leftgripdown in callbacks) {
-                            el.removeEventListener('gripdown', evt => callbacks[data.leftgripdown](evt));
+                            left.removeEventListener('gripdown', evt => callbacks[data.leftgripdown](evt));
                         }
                         if(data.click in callbacks) {
                             el.removeEventListener('click', evt => callbacks[data.click](evt));
+	                        right.removeEventListener('click', evt => callbacks[data.click](evt));
+	                        left.removeEventListener('click', evt => callbacks[data.click](evt));
                         }
 				    },
 			    };
