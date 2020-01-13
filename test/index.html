@@ -64,6 +64,24 @@
         }
       });
 
+      AFRAME.registerComponent('trackpadtouch-listener', {
+        init: function () {
+          var el = this.el;
+          el.addEventListener('trackpadtouchstart', function (evt) {
+            el.setAttribute('visible', !el.getAttribute('visible'));
+          });
+        }
+      });
+
+      AFRAME.registerComponent('trackpad-listener', {
+        init: function () {
+          var el = this.el;
+          el.addEventListener('trackpaddown', function (evt) {
+            el.setAttribute('visible', !el.getAttribute('visible'));
+          });
+        }
+      });
+
       AFRAME.registerGeometry('example', {
         schema: {
           vertices: {
@@ -420,6 +438,43 @@
           urlEl.setAttribute('visible', false);
         }
       });
+
+      AFRAME.registerComponent('raycaster-listen', {
+        oldPoint: null,
+
+        init: function () {
+          // Use events to figure out what raycaster is listening so we don't have to
+          // hardcode the raycaster.
+          let el = this.el;
+          this.el.addEventListener('raycaster-intersected', evt => {
+            this.raycaster = evt.detail.el;
+          });
+          this.el.addEventListener('raycaster-intersected-cleared', evt => {
+            this.raycaster = null;
+          });
+        },
+
+        tick: function () {
+          if (!this.raycaster) { return; }  // Not intersecting.
+
+          let intersection = this.raycaster.components.raycaster.getIntersection(this.el);
+          if (!intersection) { return; }
+          if(this.oldPoint === null || (this.oldPoint.x !== intersection.point.x || this.oldPoint.y !== intersection.point.y || this.oldPoint.z !== intersection.point.z)) {
+            this.oldPoint = intersection.point;
+            console.log(intersection.object.el);
+            let camera = document.querySelector('[camera]');
+            let position = camera.parentElement.getAttribute('position');
+            if(position !== undefined) {
+              camera.parentElement.setAttribute('position', {
+                x: intersection.point.x,
+                y: position.y,
+                z: intersection.point.z
+              });
+            }
+            console.log(intersection.point);
+          }
+        }
+      });
     </script>
   </head>
   <body>
@@ -430,32 +485,33 @@
         <img id="inBuilding" src="inBuilding.JPG">
       </a-assets>
 
-      <a-box color="#EF2D5E" position="0 1 -4" change-color-on-hover="color: blue"></a-box>
-      <a-entity mixin="yoshi" position="2 0.5 -4"></a-entity>
-      <a-box position="0 1 -4"
+      <a-box class="collidable" color="#EF2D5E" height="2" position="0 1 -4" change-color-on-hover="color: blue" raycaster-listen></a-box>
+      <a-entity class="collidable" mixin="yoshi" position="2 0.5 -4" raycaster-listen></a-entity>
+      <a-box class="collidable" height="2" position="0 1 -4"
              animation="property: position; to: 4 1 -4; dur: 1500; easing: linear"
              animation__2="property: rotation; to: 0 360 0; loop: true; dur: 10000"
              animation__color="property: material.color"
              animation__mouseenter="property: components.material.material.color; type: color; to: blue; startEvents: mouseenter; dur: 500"
-             animation__mouseleave="property: components.material.material.color; type: color; to: red; startEvents: mouseleave; dur: 500"></a-box>
+             animation__mouseleave="property: components.material.material.color; type: color; to: red; startEvents: mouseleave; dur: 500" raycaster-listen></a-box>
 
-<!--      <a-entity light="type: ambient; color: #BBB"></a-entity>-->
-<!--      <a-entity light="type: directional; color: #FFF; intensity: 0.6"-->
-<!--                position="-0.5 1 1"></a-entity>-->
       <a-entity light="color: white; intensity: 1.5" position="2 3 0"></a-entity>
 
       <a-entity id="rig" position="2 1.6 0">
-        <a-entity id="camera" camera="active: true" look-controls wasd-controls>
+        <a-entity id="camera" camera="active: true" look-controls wasd-controls raycaster="objects: .collidable">
           <a-entity id="mouseCursor" cursor="rayOrigin: mouse"></a-entity>
-          <a-entity id="leftHand" link-controls="hand: left"></a-entity>
-          <a-entity id="rightHand" link-controls="hand: right"></a-entity>
         </a-entity>
       </a-entity>
 
-      <a-link href="/aframe/inBuilding.html"
+      <a-entity id="leftHand" laser-controls="hand: left" raycaster="far: 100; objects: [link], [box]" link-controls="hand: left"></a-entity>
+      <a-entity id="rightHand" laser-controls="hand: right" raycaster="far: 100; objects: [link], [box]" link-controls="hand: right"></a-entity>
+
+      <!--<a-link class="collidable"
+              width="2"
+              height="2"
+              href="/aframe/inBuilding.html"
               title="In Building"
               image="#inBuilding"
-              position="6 1.6 -4"></a-link>
+              position="6 1.6 -4"></a-link>-->
 
       <!--<a-entity oculus-touch-controls="hand: left"
                 x-button-listener
